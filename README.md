@@ -1,5 +1,7 @@
 # aelf-web-proxy
 
+占用端口：7250
+
 ## 1.目的
 
 aelf为多链结构, 每一条链有单独的API和DB
