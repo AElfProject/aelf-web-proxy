@@ -75,8 +75,15 @@ class Proxy {
 
     proxyWeb(nodeInfo, req, res) {
         let targetUrl;
+
+        // Chain WebAPI accept like "text/plain;v=1.0";
+        const isChainWebAPI = /text\/plain;+\s*v=/.test(req.headers.accept.toLowerCase());
+        if (isChainWebAPI) {
+            targetUrl = nodeInfo.rpc_ip || nodeInfo.rpc_domain;
+        }
         // /api or /chain
-        if (req.url.match(/^\/api\//)) {
+        // api/chain is also need rpc_ip or rcp_domain; but api/chain always isChainWebAPI===true.
+        else if (req.url.match(/^\/api\//)) {
             targetUrl = nodeInfo.api_ip || nodeInfo.api_domain;
         }
         else {
