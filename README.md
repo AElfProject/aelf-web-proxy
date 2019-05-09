@@ -2,11 +2,37 @@
 
 占用端口：7250
 
+快速启动
+
+```bash
+sh build.sh start reinstall
+```
+
+## 0.快速
+
+### 用于已有AElf网络
+
+先启动 [aelf-block-api](https://github.com/AElfProject/aelf-block-api)
+
+并且需要调用 api/nodes/info 查入对应的节点的信息.
+
+修改config.js
+
+### 开发、自测
+
+如果是单纯用于研发自测，请按以下顺序操作
+[AElf Chain](https://github.com/AElfProject/AElf),
+[aelf-block-scan](https://github.com/AElfProject/aelf-block-scan),
+[aelf-block-api](https://github.com/AElfProject/aelf-block-api),
+插入数据。
+
 ## 1.目的
 
 aelf为多链结构, 每一条链有单独的API和DB
 
 aelf-web-proxy根据cookie将前端请求转发到不同的API
+
+启动时将从接口获取 对应的api路径，并且可以触发更新。
 
 Warning: 只适合在内网部署
 

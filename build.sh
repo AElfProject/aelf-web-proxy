@@ -12,7 +12,19 @@ EOT
 
 #当变量a为null或为空字符串时则var=b
 start_mode=${1:-'start'}
-echo ${start_mode}
+node_modules_action=${2:-"default"}
+echo ${start_mode} ${node_modules_action}
+
+if [ ${node_modules_action} = "reinstall" ]
+then
+    echo "npm re install"
+    rm package-lock.json
+    rm -rf node_modules
+    npm install && echo "install done"
+    sleep 3
+    npm install && echo "install check done"
+    sleep 3
+fi
 
 if [ ${start_mode} = 'stop' ]
 then
