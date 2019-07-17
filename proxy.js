@@ -78,6 +78,8 @@ class Proxy {
 
         // Chain WebAPI accept like "text/plain;v=1.0";
         const isChainWebAPI = /text\/plain;+\s*v=/.test(req.headers.accept.toLowerCase());
+        req.url = req.url.replace(/^\/chain/, '');
+
         if (isChainWebAPI) {
             targetUrl = nodeInfo.rpc_ip || nodeInfo.rpc_domain;
         }
