@@ -113,7 +113,7 @@ class Proxy {
         return;
       }
 
-      // 如果是更新节点信息，不再转发。
+      // 如果是更新代理所用节点信息，不再转发。
       if (req.url.includes('/api/aelf/nodes/update')) {
         const timeNow = (new Date()).getTime();
         if ((timeNow - this.lastUpdateTime) < nodesInfoUpdateInterval) {
