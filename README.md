@@ -1,13 +1,18 @@
 # aelf-web-proxy
 
-占用端口：7250
+1.占用端口：7250
 
-需要先安装 pm2
+2.需要先安装 pm2
 
-快速启动
+3.依赖aelf-block-api服务
+
+4.快速启动
 
 ```bash
 sh build.sh start reinstall
+# sh build.sh start
+# sh build.sh restart
+# sh build.sh stop
 ```
 
 ## 0.快速
@@ -16,17 +21,17 @@ sh build.sh start reinstall
 
 先启动 [aelf-block-api](https://github.com/AElfProject/aelf-block-api)
 
-并且需要调用 api/nodes/info 查入对应的节点的信息.
+修改config.js, 指定 nodesInfoHttpProvider
 
-修改config.js
+aelf-web-proxy 会调用aelf-block-api的 GET:api/nodes/info 查对应的节点的信息. 如果 aelf-block-api的接口查不到这个数据，请手动录入。
 
 ### 开发、自测
 
 如果是单纯用于研发自测，请按以下顺序操作
-[AElf Chain](https://github.com/AElfProject/AElf),
-[aelf-block-scan](https://github.com/AElfProject/aelf-block-scan),
-[aelf-block-api](https://github.com/AElfProject/aelf-block-api),
-插入数据。
+[AElf Chain](https://github.com/AElfProject/AElf) ->
+[aelf-block-scan](https://github.com/AElfProject/aelf-block-scan) ->
+[aelf-block-api](https://github.com/AElfProject/aelf-block-api) ->
+插入nodes的数据。
 
 ## 1.目的
 
@@ -34,15 +39,17 @@ aelf为多链结构, 每一条链有单独的API和DB
 
 aelf-web-proxy根据cookie将前端请求转发到不同的API
 
-启动时将从接口获取 对应的api路径，并且可以触发更新。
+启动时将从接口获取对应的api路径，并且可以触发更新。
 
 Warning: 只适合在内网部署; 请做好对应服务的权限控制。
 
 ## 2.匹配项
 
-/api
+/api: 将请求转发到对应 aelf-block-api服务
 
-/chain
+/chain: 将请求转发到对应的全节点服务
+
+提示：对应的 aelf-block-api和全节点服务的服务器地址存在数据库里，aelf-web-proxy会通过默认的aelf-block-api从数据库获取。
 
 ## 3.额外API, 不走转发逻辑
 
